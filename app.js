@@ -1,7 +1,8 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const app = express();
-
-// Middleware to parse JSON bodies
 app.use(express.json());
 
 const helmet = require('helmet');
@@ -10,8 +11,9 @@ app.use(helmet());
 const cors = require('cors');
 app.use(cors());
 
+const connectDB = require("./database.js");
+connectDB();
 
-// Example route
 app.get('/', (req, res) => {
     res.send('Hello, Express!');
 });
