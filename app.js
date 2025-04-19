@@ -22,6 +22,8 @@ const userRoutes = require('./user/userRoutes');
 const profileRoutes = require('./profile/profileRoutes');
 const questionnaireRoutes = require('./assessmentQuestionnaire/questionnaireRoutes');
 const assessmentRoutes = require('./assessment/assessmentRoutes');
+const competencyRoutes = require('./competency/competencyRoutes');
+const authRoutes = require('./auth/authRoutes');
 
 app.use('/areas', areaRoutes);
 app.use('/skills', skillRoutes);
@@ -29,8 +31,11 @@ app.use('/resources', resourceRoutes);
 app.use('/topics', topicRoutes);
 app.use('/users', userRoutes);
 app.use('/profiles', profileRoutes);
-app.use('/questionnaires', questionnaireRoutes);
-app.use('/assessments', assessmentRoutes);
+app.use('/questionnaire', questionnaireRoutes);
+app.use('/assessment', assessmentRoutes);
+app.use('/competency', competencyRoutes);
+app.use('/auth', authRoutes);
+
 app.get('/', (req, res) => {
     res.send('Hello, Express!');
 });
