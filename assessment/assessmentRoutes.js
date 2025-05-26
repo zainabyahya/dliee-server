@@ -1,8 +1,10 @@
+// routes/assessmentRoutes.js
 const express = require('express');
 const router = express.Router();
-const assessmentController = require('./assessmentController');
+const { submitAssessment, getAssessmentByUser } = require('./assessmentController');
+const requireAuth = require('../middleware/auth');
 
-router.post('/', assessmentController.submitAssessment);
-router.get('/:userId', assessmentController.getAssessmentByUser);
+router.post('/submit', requireAuth, submitAssessment);
+router.get('/user/:userId', requireAuth, getAssessmentByUser);
 
 module.exports = router;

@@ -17,7 +17,7 @@ connectDB();
 
 const areaRoutes = require('./area/areaRoutes');
 const skillRoutes = require('./skill/skillRoutes');
-const resourceRoutes = require('./resource/resourceRoutes');
+const moduleRoutes = require('./module/moduleRoutes.js');
 const topicRoutes = require('./topic/topicRoutes');
 const userRoutes = require('./user/userRoutes');
 const profileRoutes = require('./profile/profileRoutes');
@@ -25,10 +25,12 @@ const questionnaireRoutes = require('./assessmentQuestionnaire/questionnaireRout
 const assessmentRoutes = require('./assessment/assessmentRoutes');
 const competencyRoutes = require('./competency/competencyRoutes');
 const authRoutes = require('./auth/authRoutes');
+const communityRouter = require('./communityPost/communityPostRoutes')
+const libraryRouter = require('./libraryPost/libraryPostsRoutes.js')
 
 app.use('/areas', areaRoutes);
 app.use('/skills', skillRoutes);
-app.use('/resources', resourceRoutes);
+app.use('/modules', moduleRoutes);
 app.use('/topics', topicRoutes);
 app.use('/users', userRoutes);
 app.use('/profiles', profileRoutes);
@@ -36,6 +38,8 @@ app.use('/questionnaire', questionnaireRoutes);
 app.use('/assessment', assessmentRoutes);
 app.use('/competency', competencyRoutes);
 app.use('/auth', authRoutes);
+app.use('/community', communityRouter);
+app.use('/library', libraryRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello, Express!');
