@@ -1,4 +1,3 @@
-// libraryPost/libraryPostRoutes.js
 const express = require('express');
 const router = express.Router();
 const requireAuth = require('../middleware/auth');
@@ -7,16 +6,26 @@ const {
     getLibraryPosts,
     getLibraryPostById,
     updateLibraryPost,
-    deleteLibraryPost
+    deleteLibraryPost,
 } = require('./libraryPostController');
 
-// Protect all library-post routes
 router.use(requireAuth);
 
+// Admin-only check
+const requireAdmin = (req, res, next) => {
+    if (req.user?.role !== 'admin') {
+        return res.status(403).json({ message: 'Admin access only' });
+    }
+    next();
+};
+
+// Public for all authenticated users
 router.get('/', getLibraryPosts);
-router.post('/', createLibraryPost);
 router.get('/:id', getLibraryPostById);
-router.put('/:id', updateLibraryPost);
-router.delete('/:id', deleteLibraryPost);
+
+// Admin-only for modifications
+router.post('/', requireAdmin, createLibraryPost);
+router.put('/:id', requireAdmin, updateLibraryPost);
+router.delete('/:id', requireAdmin, deleteLibraryPost);
 
 module.exports = router;

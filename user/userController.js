@@ -28,14 +28,16 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-// Delete a user
-exports.deleteUser = async (req, res) => {
+exports.deleteMyAccount = async (req, res) => {
     try {
-        const deletedUser = await User.findByIdAndDelete(req.params.id);
-        if (!deletedUser)
-            return res.status(404).json({ message: 'User not found' });
-        res.status(200).json({ message: 'User deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+        const userId = req.user._id;
+
+        await Profile.findOneAndDelete({ user: userId });
+        await User.findByIdAndDelete(userId);
+
+        res.status(200).json({ message: 'Account and profile deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
+

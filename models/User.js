@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 var validateNumber = function (number) {
     var re = /^07\d{9}$/;
@@ -13,13 +13,18 @@ const userSchema = new Schema({
     phoneNumber: {
         type: String,
         unique: true,
-        required: 'رقم الهاتف مطلوب',
-        validate: [validateNumber, 'الرجاء ادخال رقم صالح'],
+        required: "رقم الهاتف مطلوب",
+        validate: [validateNumber, "الرجاء ادخال رقم صالح"],
     },
     password: {
         type: String,
         trim: true,
-        required: 'كلمة السر مطلوبة',
+        required: "كلمة السر مطلوبة",
+    },
+    role: {
+        type: String,
+        enum: ["admin", "user"],
+        default: "user",
     },
 });
 
@@ -35,5 +40,5 @@ userSchema.methods.comparePassword = function (plain) {
     return bcrypt.compare(plain, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+const User = model("User", userSchema);
 module.exports = User;

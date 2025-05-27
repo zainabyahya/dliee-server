@@ -33,7 +33,7 @@ app.use('/skills', skillRoutes);
 app.use('/modules', moduleRoutes);
 app.use('/topics', topicRoutes);
 app.use('/users', userRoutes);
-app.use('/profiles', profileRoutes);
+app.use('/profile', profileRoutes);
 app.use('/questionnaire', questionnaireRoutes);
 app.use('/assessment', assessmentRoutes);
 app.use('/competency', competencyRoutes);

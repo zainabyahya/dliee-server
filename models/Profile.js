@@ -8,31 +8,29 @@ const profileSchema = new Schema(
             ref: "User",
             required: true,
             unique: true,
+            index: true,
         },
         assessmentScore: {
             type: Number,
             default: 0,
         },
-        favorites: [
-            {
-                type: String,
-            },
-        ],
         currentLevel: {
             type: String,
-            default: "Beginner",
+            enum: ["A1", "A2", "B1", "B2", "C1", "C2"],
+            default: "A1",
         },
-        profileImage: {
-            type: String,
-            default: "",
-        },
-        currentlyDoing: [
-            {
-                type: String,
-            },
-        ],
+        currentlyDoing: {
+            type: Schema.Types.ObjectId,
+            ref: "Module",
+            default: null,
+        }
+
     },
-    { timestamps: true }
+    {
+        timestamps: true,
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+    }
 );
 
 const Profile = model("Profile", profileSchema);
