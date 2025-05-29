@@ -16,7 +16,7 @@ exports.createProfile = async (req, res) => {
 exports.getMyProfile = async (req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.user._id })
-            .populate('user', 'firstName lastName')
+            .populate('user', 'firstName lastName phoneNumber')
             .populate('currentlyDoing', 'title');
 
         if (!profile) {
@@ -30,6 +30,7 @@ exports.getMyProfile = async (req, res) => {
                 _id: profile.user._id,
                 firstName: profile.user.firstName,
                 lastName: profile.user.lastName,
+                phoneNumber: profile.user.phoneNumber,
             },
             assessmentScore: profile.assessmentScore,
             currentLevel: profile.currentLevel,

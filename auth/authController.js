@@ -67,3 +67,17 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+
+exports.deleteMyAccount = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        await Profile.findOneAndDelete({ user: userId });
+        await User.findByIdAndDelete(userId);
+
+        res.status(200).json({ message: 'Account and profile deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};

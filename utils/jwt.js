@@ -14,7 +14,7 @@ function signToken(user) {
     return jwt.sign(
         payload,
         process.env.SECRET_KEY,
-        { expiresIn: "24h" }
+        { expiresIn: "2h" }
     );
 }
 
