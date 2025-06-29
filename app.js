@@ -27,7 +27,9 @@ const competencyRoutes = require('./competency/competencyRoutes');
 const authRoutes = require('./auth/authRoutes');
 const communityRouter = require('./communityPost/communityPostRoutes')
 const libraryRouter = require('./libraryPost/libraryPostsRoutes.js')
+const contactRoute = require("./contact/contactRoutes.js");
 
+app.use("/api/contact", contactRoute);
 app.use('/areas', areaRoutes);
 app.use('/skills', skillRoutes);
 app.use('/modules', moduleRoutes);
