@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Module = require('../models/Module');
 
 // GET /api/modules
@@ -68,5 +69,28 @@ exports.deleteModule = async (req, res) => {
         res.status(200).json({ message: 'Module deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getModulesByCompetency = async (req, res) => {
+    const { competencyId } = req.params;
+
+    console.log("📥 Requested competencyId:", competencyId);
+
+    if (!mongoose.Types.ObjectId.isValid(competencyId)) {
+        return res.status(400).json({ error: 'Invalid competency ID' });
+    }
+
+    try {
+        const objectId = new mongoose.Types.ObjectId(competencyId);
+        const modules = await Module.find({ competency: objectId })
+            .populate('competency')
+            .sort({ createdAt: 1 });
+
+        console.log("📤 Found modules:", modules);
+        res.status(200).json({ modules });
+    } catch (err) {
+        console.error("❌ Error:", err);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };

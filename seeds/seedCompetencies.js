@@ -1,4 +1,3 @@
-// seeds/seedCompetencies.js
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -9,7 +8,7 @@ const Competency = require('../models/Competency');
 
 // Define the 22 competencies with a reference to the area name
 const competenciesData = [
-    // Area: المشاركة المهنية
+    // Area: المشاركة المهنية (Professional Engagement)
     {
         name: "التواصل الرقمي",
         description: "استخدام القنوات الرقمية للتواصل مع المتعلمين والزملاء بفعالية.",
@@ -21,113 +20,113 @@ const competenciesData = [
         areaName: "المشاركة المهنية"
     },
     {
+        name: "الممارسة التأملية",
+        description: "تحليل وتقييم الممارسات التعليمية لتحسين الأداء المستقبلي باستخدام الأدوات الرقمية.",
+        areaName: "المشاركة المهنية"
+    },
+    {
         name: "التطوير المهني الرقمي",
         description: "استخدام التقنيات الرقمية لتعزيز التطوير المهني وبناء الشبكات.",
         areaName: "المشاركة المهنية"
     },
 
-    // Area: الموارد الرقمية
+    // Area: الموارد الرقمية (Digital Resources)
     {
-        name: "البحث عن الموارد الرقمية",
+        name: "اختيار الموارد الرقمية",
         description: "تحديد واختيار الموارد الرقمية المناسبة لتعزيز العملية التعليمية.",
         areaName: "الموارد الرقمية"
     },
     {
-        name: "إنشاء الموارد الرقمية",
-        description: "تصميم وإنشاء محتوى رقمي يدعم وتيرة التعلم.",
+        name: "إنشاء وتعديل الموارد الرقمية",
+        description: "تصميم وإنشاء وتعديل محتوى رقمي يدعم وتيرة التعلم.",
         areaName: "الموارد الرقمية"
     },
     {
-        name: "تعديل وإعادة استخدام الموارد الرقمية",
-        description: "تعديل الموارد الرقمية الموجودة لتناسب احتياجات التدريس وإعادة استخدامها.",
-        areaName: "الموارد الرقمية"
-    },
-    {
-        name: "مشاركة الموارد الرقمية",
-        description: "نشر وتبادل الموارد الرقمية مع زملاء التدريس والمجتمع التعليمي.",
+        name: "إدارة ومشاركة الموارد الرقمية",
+        description: "إدارة الموارد الرقمية ومشاركتها مع الزملاء وحمايتها بفعالية.",
         areaName: "الموارد الرقمية"
     },
 
-    // Area: التدريس والتعلم
+    // Area: التدريس والتعلم (Teaching and Learning)
     {
-        name: "تصميم بيئات التعلم الرقمية",
-        description: "إنشاء وتخطيط بيئات تعليمية رقمية داعمة للتعلم الفعال.",
+        name: "التدريس باستخدام التقنيات الرقمية",
+        description: "استخدام استراتيجيات تدريس رقمية لدعم العملية التعليمية.",
         areaName: "التدريس والتعلم"
     },
     {
-        name: "تنفيذ استراتيجيات تدريس رقمية مبتكرة",
-        description: "استخدام أساليب تدريس رقمية حديثة لتعزيز التفاعل والتعلم.",
+        name: "تقديم التوجيه والدعم",
+        description: "مرافقة المتعلمين خلال رحلتهم الرقمية وتقديم الإرشاد المناسب.",
         areaName: "التدريس والتعلم"
     },
     {
-        name: "إدارة عمليات التعلم الرقمي",
-        description: "تنظيم ومراقبة عمليات التعلم باستخدام تقنيات رقمية لضمان جودة العملية التعليمية.",
+        name: "تعزيز التعلم التعاوني",
+        description: "دعم التعاون بين المتعلمين باستخدام أدوات وتقنيات رقمية.",
         areaName: "التدريس والتعلم"
     },
     {
-        name: "تسهيل التواصل والتفاعل في التعليم الرقمي",
-        description: "دعم وتيسير التفاعل والتواصل بين المعلمين والطلاب عبر المنصات الرقمية.",
+        name: "تعزيز التعلم الذاتي التنظيم",
+        description: "تمكين المتعلمين من تنظيم تعلمهم باستخدام حلول رقمية.",
         areaName: "التدريس والتعلم"
     },
 
-    // Area: التقييم
+    // Area: التقييم (Assessment)
     {
-        name: "تصميم التقييم الرقمي",
+        name: "استراتيجيات التقييم الرقمي",
         description: "ابتكار وتصميم أدوات تقييم رقمية فعالة لقياس تقدم التعلم.",
         areaName: "التقييم"
     },
     {
-        name: "استخدام التقنيات الرقمية للمراقبة والتغذية الراجعة",
-        description: "توظيف الأدوات الرقمية لمتابعة تقدم الطلاب وتقديم التغذية الراجعة البناءة.",
+        name: "تحليل الأدلة الرقمية",
+        description: "تحليل نتائج التقييمات الرقمية لتوجيه العملية التعليمية.",
         areaName: "التقييم"
     },
     {
-        name: "تحليل بيانات التعلم الرقمية",
-        description: "استخدام البيانات الرقمية لتحليل أداء المتعلمين وتحسين الاستراتيجيات التعليمية.",
+        name: "التغذية الراجعة والتخطيط",
+        description: "استخدام البيانات لتقديم تغذية راجعة بناءة وتحسين التخطيط.",
         areaName: "التقييم"
     },
 
-    // Area: تمكين المتعلمين
+    // Area: تمكين المتعلمين (Empowering Learners)
     {
-        name: "تخصيص التعلم الرقمي",
-        description: "تصميم تجارب تعلم رقمية مخصصة لتلبية احتياجات المتعلمين الفردية.",
+        name: "إتاحة الوصول والشمول",
+        description: "توفير بيئات تعليمية رقمية تراعي جميع احتياجات المتعلمين.",
         areaName: "تمكين المتعلمين"
     },
     {
-        name: "تشجيع استقلالية المتعلمين",
-        description: "تشجيع المتعلمين على تحمل مسؤولية تعلمهم من خلال أدوات رقمية تفاعلية.",
+        name: "التفريد والتخصيص",
+        description: "تصميم أنشطة تعلم رقمية مخصصة تلائم أنماط المتعلمين.",
         areaName: "تمكين المتعلمين"
     },
     {
-        name: "دعم المتعلمين باستخدام التقنيات الرقمية",
-        description: "توفير الدعم اللازم للمتعلمين باستخدام الأدوات الرقمية الملائمة.",
-        areaName: "تمكين المتعلمين"
-    },
-    {
-        name: "إشراك المتعلمين في التعلم النشط",
-        description: "تعزيز مشاركة المتعلمين من خلال أنشطة تعلم رقمية تفاعلية ومحفزة.",
+        name: "إشراك المتعلمين بفعالية",
+        description: "تشجيع المتعلمين على المشاركة الفاعلة باستخدام تقنيات رقمية محفزة.",
         areaName: "تمكين المتعلمين"
     },
 
-    // Area: تسهيل تطوير الكفاءة الرقمية للمتعلمين
+    // Area: تسهيل تطوير الكفاءة الرقمية للمتعلمين (Facilitating Learners' Digital Competence)
     {
-        name: "توجيه المتعلمين في تقييم مصداقية المعلومات الرقمية",
-        description: "تعليم المتعلمين كيفية تقييم مصداقية وجودة المعلومات التي يستقونها رقمياً.",
+        name: "التربية الإعلامية والمعلوماتية",
+        description: "تعليم المتعلمين كيفية تقييم مصداقية المعلومات الرقمية.",
         areaName: "تسهيل تطوير الكفاءة الرقمية للمتعلمين"
     },
     {
-        name: "تسهيل التعلم التعاوني الرقمي",
-        description: "تيسير بيئة التعلم التعاوني باستخدام الأدوات والتقنيات الرقمية.",
+        name: "تعليم التواصل الرقمي الفعال",
+        description: "تمكين المتعلمين من استخدام الوسائط الرقمية للتواصل والتعاون بفعالية.",
         areaName: "تسهيل تطوير الكفاءة الرقمية للمتعلمين"
     },
     {
-        name: "تمكين المتعلمين للابتكار الرقمي",
-        description: "تشجيع وإدارة الابتكار الرقمي بين المتعلمين عبر استخدام التقنيات الإبداعية.",
+        name: "إنشاء المحتوى الرقمي",
+        description: "تمكين المتعلمين من إنتاج وتعديل محتوى رقمي خاص بهم.",
         areaName: "تسهيل تطوير الكفاءة الرقمية للمتعلمين"
     },
     {
-        name: "خلق بيئات تعلم رقمية شاملة",
-        description: "تصميم بيئات تعليمية رقمية تراعي احتياجات جميع المتعلمين لضمان شمولية التعليم.",
+        name: "تعزيز الاستخدام المسؤول للتكنولوجيا",
+        description: "تعليم الطلاب كيفية استخدام التكنولوجيا بشكل آمن وأخلاقي ومسؤول.",
+        areaName: "تسهيل تطوير الكفاءة الرقمية للمتعلمين"
+    },
+    {
+        name: "تنمية مهارات حل المشكلات الرقمية",
+        description: "تشجيع التفكير النقدي وحل المشكلات باستخدام الأدوات الرقمية.",
         areaName: "تسهيل تطوير الكفاءة الرقمية للمتعلمين"
     }
 ];
@@ -136,14 +135,16 @@ mongoose.connect(process.env.DB_LINK, { useNewUrlParser: true, useUnifiedTopolog
     .then(async () => {
         console.log("Connected to MongoDB");
 
-        // Prepare competency documents by finding the matching area for each competency
         const competenciesToInsert = [];
+
+        await Competency.deleteMany({});
+        console.log("✅ Existing competencies cleared.");
+
         for (let comp of competenciesData) {
-            // Look for the area by its Arabic name
             const area = await Area.findOne({ name: comp.areaName });
             if (!area) {
-                console.error(`Area not found: ${comp.areaName}`);
-                continue; // Skip this competency if area is not found
+                console.error(`❌ Area not found: ${comp.areaName}`);
+                continue;
             }
             competenciesToInsert.push({
                 name: comp.name,
@@ -152,19 +153,17 @@ mongoose.connect(process.env.DB_LINK, { useNewUrlParser: true, useUnifiedTopolog
             });
         }
 
-        // Check if competencies already exist
         const count = await Competency.countDocuments();
         if (count > 0) {
             console.log("Competencies already exist. Exiting seeder.");
             process.exit(0);
         }
 
-        // Insert competencies
         const insertedCompetencies = await Competency.insertMany(competenciesToInsert);
-        console.log("Seeded competencies successfully:", insertedCompetencies);
+        console.log("✅ Seeded competencies successfully:", insertedCompetencies.length);
         process.exit(0);
     })
     .catch(err => {
-        console.error("Error connecting to MongoDB", err);
+        console.error("❌ Error connecting to MongoDB", err);
         process.exit(1);
     });
