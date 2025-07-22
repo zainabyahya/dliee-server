@@ -9,23 +9,21 @@ const {
     deleteLibraryPost,
 } = require('./libraryPostController');
 
-router.use(requireAuth);
-
-// Admin-only check
+// Robust admin-only check
 const requireAdmin = (req, res, next) => {
-    if (req.user?.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Admin access only' });
     }
     next();
 };
 
-// Public for all authenticated users
+// ✅ Public access (no auth required)
 router.get('/', getLibraryPosts);
 router.get('/:id', getLibraryPostById);
 
-// Admin-only for modifications
-router.post('/', requireAdmin, createLibraryPost);
-router.put('/:id', requireAdmin, updateLibraryPost);
-router.delete('/:id', requireAdmin, deleteLibraryPost);
+// 🔐 Admin-only (auth + role check)
+router.post('/', requireAuth, requireAdmin, createLibraryPost);
+router.put('/:id', requireAuth, requireAdmin, updateLibraryPost);
+router.delete('/:id', requireAuth, requireAdmin, deleteLibraryPost);
 
 module.exports = router;
